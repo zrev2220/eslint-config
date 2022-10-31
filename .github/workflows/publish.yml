@@ -1,0 +1,31 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - v[0-9]* # tag push events matching v[0-9]*, i.e. v1.0, v20.15.10, v2.0.0-beta.1
+
+env:
+  NODE_VERSION: 18.x
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+  publish:
+    runs-on: ubuntu-latest
+    environment: production
+    needs:
+      - ci
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - run: npm ci --prefer-offline
+      - name: Log in to npm
+        run: |
+          npm config set _authToken=${{ secrets.NPM_TOKEN }}
+      - name: Publish
+        run: npm publish --access=public
