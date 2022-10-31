@@ -1,0 +1,60 @@
+{
+  "name": "@zrev2220/eslint-config",
+  "version": "0.1.0",
+  "description": "My personal ESLint config",
+  "main": "index.js",
+  "files": [
+    ".eslintrc.json",
+    "index.js"
+  ],
+  "scripts": {
+    "prepare": "husky install",
+    "lint": "run-s prettier-check",
+    "lint-fix": "run-s prettier",
+    "prettier": "prettier -u --ignore-path .gitignore --write .",
+    "prettier-check": "prettier -u --ignore-path .gitignore --check ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zrev2220/eslint-config.git"
+  },
+  "keywords": [
+    "eslint"
+  ],
+  "author": "https://github.com/zrev2220",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zrev2220/eslint-config/issues"
+  },
+  "homepage": "https://github.com/zrev2220/eslint-config#readme",
+  "dependencies": {
+    "@typescript-eslint/parser": "^5.42.0",
+    "eslint-import-resolver-typescript": "^3.5.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@zrev2220/prettier-config": "^1.0.0",
+    "eslint": "^8.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1"
+  },
+  "peerDependencies": {
+    "@typescript-eslint/eslint-plugin": ">=4",
+    "eslint": ">=7",
+    "eslint-config-prettier": ">=8",
+    "eslint-plugin-import": ">=2",
+    "eslint-plugin-prettier": ">=4",
+    "eslint-plugin-react-hooks": ">=4",
+    "standard": ">=16"
+  },
+  "prettier": "@zrev2220/prettier-config",
+  "lint-staged": {
+    "*": "prettier -u --ignore-path .gitignore --write"
+  }
+}
