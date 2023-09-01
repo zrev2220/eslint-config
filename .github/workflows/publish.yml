@@ -30,7 +30,7 @@ jobs:
         if: ${{ steps.check-publish-version.outputs.exists == '0' }}
         run: |
           npm ci --prefer-offline
-          npm config set _authToken=${{ secrets.NPM_TOKEN }}
+          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
           npm publish --access=public
       - name: Report existing version
         if: ${{ steps.check-publish-version.outputs.exists == '1' }}
