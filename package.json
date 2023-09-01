@@ -1,6 +1,6 @@
 {
   "name": "@zrev2220/eslint-config",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "My personal ESLint config",
   "main": "index.js",
   "files": [
