@@ -2,8 +2,8 @@ name: Publish
 
 on:
   push:
-    tags:
-      - v[0-9]* # tag push events matching v[0-9]*, i.e. v1.0, v20.15.10, v2.0.0-beta.1
+    branches:
+      - master
 
 env:
   NODE_VERSION: 18.x
@@ -23,9 +23,15 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-      - run: npm ci --prefer-offline
-      - name: Log in to npm
-        run: |
-          npm config set _authToken=${{ secrets.NPM_TOKEN }}
+      - name: Check for existing version
+        id: check-publish-version
+        uses: tehpsalmist/npm-publish-status-action@v1
       - name: Publish
-        run: npm publish --access=public
+        if: ${{ steps.check-publish-version.outputs.exists == '0' }}
+        run: |
+          npm ci --prefer-offline
+          npm config set _authToken=${{ secrets.NPM_TOKEN }}
+          npm publish --access=public
+      - name: Report existing version
+        if: ${{ steps.check-publish-version.outputs.exists == '1' }}
+        run: 'echo "Version already exists in npm registry"'
